@@ -213,7 +213,7 @@ function finLesen(fin) {
 
   // Fahrzeugschein-Vorschau leuchtet mit
   const schein = (n) => $(`[data-schein="${n}"]`);
-  const muster = { hsn: '0603', tsn: 'BJM', fin: 'WVWZZZ1KZAW000000' };
+  const muster = { hsn: '0603', tsn: 'BJM00012', fin: 'WVWZZZ1KZAW000000' };
   const hsn = $('#ra-hsn'), tsn = $('#ra-tsn'), fin = $('#ra-fin'), finInfo = $('#fin-info');
   [[hsn, 'hsn', /\D/g], [tsn, 'tsn', /[^A-Z0-9]/g], [fin, 'fin', /[^A-Z0-9]/g]].forEach(([f, n, weg]) => {
     f.addEventListener('focus', () => schein(n).classList.add('an'));
@@ -221,7 +221,7 @@ function finLesen(fin) {
     f.addEventListener('input', () => {
       f.value = f.value.toUpperCase().replace(weg, '').slice(0, f.maxLength);
       schein(n).textContent = f.value || muster[n];
-      if (n === 'hsn' && f.value.length === 4) tsn.focus();
+      
       if (n === 'fin') {
         const info = finLesen(f.value);
         finInfo.hidden = !info || (info.teil && !info.hersteller);
@@ -258,13 +258,13 @@ function finLesen(fin) {
     let neu;
     if (ohne) neu = `Reifenanfrage: ${art}. Bitte über das Kennzeichen nachsehen.`;
     else if (modus === 'auto') {
-      const hatSchluessel = hsn.value.length === 4 && tsn.value.length === 3;
+      // Laut Ralf: Fahrgestellnummer ist der sichere Weg, Schlüsselnummern nur vollständig und zusätzlich
       const info = finLesen(fin.value);
       const finOk = fin.value.length === 17 && info && !info.falsch;
-      if (!hatSchluessel && !finOk) return melde('Bitte HSN (4 Ziffern) und TSN (3 Zeichen) oder die 17-stellige Fahrgestellnummer eintragen.', hsn.value ? tsn : hsn);
-      const teile = [];
-      if (hatSchluessel) teile.push(`HSN ${hsn.value} / TSN ${tsn.value}`);
-      if (finOk) teile.push(`FIN ${fin.value}${info.hersteller ? ` (${info.hersteller})` : ''}`);
+      if (!finOk) return melde('Bitte die 17-stellige Fahrgestellnummer eintragen (Feld E im Fahrzeugschein).', fin);
+      if ((hsn.value || tsn.value) && (hsn.value.length !== 4 || tsn.value.length < 8)) return melde('Die Schlüsselnummern bitte vollständig: HSN mit 4 Ziffern, TSN komplett aus Feld 2.2 (mindestens 8 Zeichen). Oder die Felder leer lassen.', hsn.value.length !== 4 ? hsn : tsn);
+      const teile = [`FIN ${fin.value}${info.hersteller ? ` (${info.hersteller})` : ''}`];
+      if (hsn.value) teile.push(`HSN ${hsn.value} / TSN ${tsn.value}`);
       neu = `Reifenanfrage: ${art} für ${teile.join(', ')}. Bitte um ein Angebot.`;
     } else {
       const leer = felder.find((f) => !f.value);

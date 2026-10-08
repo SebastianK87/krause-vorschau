@@ -631,3 +631,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .drei-wege.drei-wege-oben { margin-left: 0; margin-right: 0; }
 .kontakt-info .status-dunkel { color: var(--text); }
 @media (max-width: 760px) { .bildband li { width: 72vw; } .bildband li:first-child, .bildband li:nth-child(6) { width: 86vw; } .bildband img { height: 58vw; } .bildband-spur { animation-duration: 40s; } }
+.ra-zusatz { margin: 18px 0 8px; font-size: 14px; color: #56657a; }
+.marke span { order: 0; }
+.marke b { order: 1; }
+/* Tippflächen am Handy mindestens 44 px */
+.kopf-points { min-height: 40px; }
+.textlink { display: inline-flex; align-items: center; min-height: 44px; }
+.fuss-unten nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+@media (max-width: 760px) { .marke { min-height: 44px; align-items: center; } }
