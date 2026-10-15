@@ -406,6 +406,25 @@
   </div>
 </section>
 
+<!-- ═══ IMAGEFILM · lädt erst in Sichtnähe, Ton erst nach Klick (Quelle: ~/Projekte/krause-imagefilm) ═══ -->
+<section class="imagefilm" id="imagefilm" aria-labelledby="imagefilm-titel">
+  <div class="rahmen">
+    <div class="imagefilm-kopf">
+      <p class="kicker kicker-hell">Film ansehen</p>
+      <h2 class="h2" id="imagefilm-titel">Einmal durch die Werkstatt.</h2>
+    </div>
+    <div class="imagefilm-rahmen">
+      <video class="imagefilm-video" controls loading="lazy" preload="none" playsinline width="1920" height="1080" poster="video/imagefilm-poster.webp" aria-describedby="imagefilm-text">
+        <source src="video/imagefilm-960.webm" type="video/webm" media="(max-width: 760px)">
+        <source src="video/imagefilm-960.mp4" type="video/mp4" media="(max-width: 760px)">
+        <source src="video/imagefilm-1920.webm" type="video/webm">
+        <source src="video/imagefilm-1920.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="imagefilm-text" id="imagefilm-text">Rad runter, Profil messen, Bremse prüfen, Reifen montieren: ein Arbeitstag bei uns in Stahnsdorf, in 41 Sekunden. Der Film hat Musik, der Ton startet erst, wenn Sie auf Play drücken.</p>
+  </div>
+</section>
+
 <!-- ═══ DER BETRIEB · Bilder laufen als Band durch, halten beim Zeigen an ═══ -->
 <section class="blatt betrieb" id="betrieb" aria-labelledby="betrieb-titel">
   <div class="rahmen betrieb-kopf">
